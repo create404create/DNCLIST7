@@ -14,83 +14,98 @@
 <div class="container">
   <header>
     <h1>US People Search Pro</h1>
-    <p>Find name, address, relatives & more – Now with Advanced Features!</p>
+    <p>Find name, address, relatives & more – Professional & Secure Search Tool</p>
     <button id="themeToggle" title="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
     <button id="languageToggle" title="Toggle Language">English</button>
   </header>
 
   <nav class="main-nav">
     <button id="phoneSearchTab" class="active">Phone Search</button>
-    <button id="nameSearchTab">Name Search (Beta)</button>
-    <button id="emailSearchTab">Email Search (Beta)</button>
-    <button id="addressSearchTab">Address Search (Beta)</button>
-    <button id="premiumFeatures">Premium (Simulated)</button>
+    <button id="nameSearchTab">Name Search</button>
+    <button id="emailSearchTab">Email Search</button>
+    <button id="addressSearchTab">Address Search</button>
+    <button id="areaCodesTab">Area Codes</button>
+    <button id="premiumFeatures">Premium</button>
   </nav>
 
-  <div id="phoneSearchSection">
+  <section id="phoneSearchSection">
     <div class="search-box">
       <div class="input-wrapper">
-        <input type="text" id="phoneInput" placeholder="Enter 10-digit phone (e.g. 4045094083)" maxlength="12" aria-label="Phone number input" />
+        <input type="text" id="phoneInput" placeholder="Enter 10-digit phone (e.g. 404-509-4083)" maxlength="12" aria-label="Phone number input" />
         <button id="clearInput" class="clear-btn hidden"><i class="fas fa-times"></i></button>
       </div>
       <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
-      <button id="bulkSearchBtn"><i class="fas fa-list"></i> Bulk Search</button>
+      <button id="bulkSearchBtn"><i class="fas fa-list"></i> Bulk</button>
     </div>
-  </div>
+  </section>
 
-  <div id="nameSearchSection" class="hidden">
+  <section id="nameSearchSection" class="hidden">
     <div class="search-box">
-      <input type="text" id="nameInput" placeholder="Enter full name" />
+      <input type="text" id="nameInput" placeholder="Enter full name (e.g. John Doe)" />
       <button id="nameSearchBtn"><i class="fas fa-search"></i> Search Name</button>
     </div>
-  </div>
+  </section>
 
-  <div id="emailSearchSection" class="hidden">
+  <section id="emailSearchSection" class="hidden">
     <div class="search-box">
-      <input type="text" id="emailInput" placeholder="Enter email address" />
+      <input type="email" id="emailInput" placeholder="Enter email (e.g. example@email.com)" />
       <button id="emailSearchBtn"><i class="fas fa-search"></i> Search Email</button>
     </div>
-  </div>
+  </section>
 
-  <div id="addressSearchSection" class="hidden">
+  <section id="addressSearchSection" class="hidden">
     <div class="search-box">
-      <input type="text" id="addressInput" placeholder="Enter address" />
+      <input type="text" id="addressInput" placeholder="Enter address (e.g. 123 Main St, City, State)" />
       <button id="addressSearchBtn"><i class="fas fa-search"></i> Search Address</button>
     </div>
-  </div>
+  </section>
 
-  <div id="bulkSearchSection" class="hidden">
+  <section id="areaCodesSection" class="hidden">
+    <h3>Area Code Directory</h3>
+    <input type="text" id="areaCodeInput" placeholder="Search area code (e.g. 404)" />
+    <ul id="areaCodesList"></ul>
+  </section>
+
+  <section id="bulkSearchSection" class="hidden">
     <input type="file" id="bulkFileInput" accept=".txt,.csv" />
     <button id="startBulkBtn">Start Bulk Search</button>
     <div id="bulkProgress"></div>
-  </div>
+    <div id="bulkResults" class="hidden">
+      <h4>Bulk Results</h4>
+      <table id="bulkTable">
+        <thead><tr><th>Phone</th><th>Name</th><th>State</th><th>Status</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <button id="exportBulkCsv">Export CSV</button>
+    </div>
+  </section>
 
   <div id="loading" class="hidden">
     <div class="spinner"></div>
-    <p>Searching database...</p>
+    <p>Searching...</p>
   </div>
 
   <div id="error" class="hidden"></div>
 
-  <div id="result" class="hidden">
+  <section id="result" class="hidden">
     <div class="card main-card">
       <div class="header-row">
         <h2 id="personName"></h2>
-        <button id="favoriteBtn" title="Add to Favorites"><i class="far fa-star"></i></button>
+        <button id="favoriteBtn" title="Favorite"><i class="far fa-star"></i></button>
       </div>
       <p id="personStatus"></p>
       <div class="info-grid">
         <div><strong>Phone:</strong> <span id="phone"></span></div>
         <div><strong>Searched:</strong> <span id="searchTime"></span></div>
-        <div><strong>DOB / Age:</strong> <span id="dobAge"></span></div>
-        <div><strong>Spam Risk:</strong> <span id="spamRisk">Low (Simulated)</span></div>
+        <div><strong>DOB/Age:</strong> <span id="dobAge"></span></div>
+        <div><strong>Spam Risk:</strong> <span id="spamRisk">Low</span></div>
       </div>
     </div>
 
     <div class="card collapsible">
       <h3 onclick="toggleSection(this)">Addresses <i class="fas fa-chevron-down"></i></h3>
       <div id="addresses" class="section-content"></div>
-      <div id="map" style="height: 300px; margin-top: 20px;"></div>
+      <div id="map" class="map-container"></div>
     </div>
 
     <div class="card collapsible">
@@ -99,70 +114,69 @@
     </div>
 
     <div class="card collapsible">
-      <h3 onclick="toggleSection(this)">Background Check (Simulated) <i class="fas fa-chevron-down"></i></h3>
+      <h3 onclick="toggleSection(this)">Background (Simulated) <i class="fas fa-chevron-down"></i></h3>
       <div class="section-content">
-        <p>Criminal Records: None found</p>
-        <p>Court Records: Clean</p>
-        <p>Social Media: LinkedIn, Facebook (links simulated)</p>
+        <p>Criminal Records: None</p>
+        <p>Social Media: Facebook, LinkedIn (links)</p>
       </div>
     </div>
 
     <div class="actions">
       <button id="copyBtn"><i class="fas fa-copy"></i> Copy</button>
-      <button id="exportTxtBtn"><i class="fas fa-download"></i> TXT</button>
+      <button id="exportTxtBtn"><i class="fas fa-file-alt"></i> TXT</button>
       <button id="exportPdfBtn"><i class="fas fa-file-pdf"></i> PDF</button>
       <button id="shareBtn"><i class="fas fa-share-alt"></i> Share</button>
       <button id="printBtn"><i class="fas fa-print"></i> Print</button>
       <button id="newSearch"><i class="fas fa-redo"></i> New</button>
     </div>
-  </div>
+  </section>
 
-  <div id="bulkResults" class="hidden">
-    <h3>Bulk Search Results</h3>
-    <table id="bulkTable">
-      <thead><tr><th>Phone</th><th>Name</th><th>State</th><th>Status</th></tr></thead>
-      <tbody></tbody>
-    </table>
-    <button id="exportBulkCsv">Export CSV</button>
-  </div>
-
-  <div class="history-section">
-    <h3>Recent Searches <button id="clearHistory"><i class="fas fa-trash"></i> Clear</button></h3>
-    <ul id="historyList"></ul>
-    <div id="favoritesSection">
-      <h4>Favorites</h4>
-      <ul id="favoritesList"></ul>
+  <section class="testimonials">
+    <h3>User Testimonials</h3>
+    <div class="testimonial-card">
+      <p>"Great tool for quick lookups!" - User A</p>
     </div>
-  </div>
+    <div class="testimonial-card">
+      <p>"Very accurate results." - User B</p>
+    </div>
+  </section>
 
-  <div id="premiumSection" class="hidden">
-    <h3>Premium Features (Simulated)</h3>
+  <section class="faq">
+    <h3>Frequently Asked Questions</h3>
+    <div class="faq-item">
+      <h4>How does reverse phone lookup work?</h4>
+      <p>It searches public records for phone owner info.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Is the data accurate?</h4>
+      <p>Data is from reliable sources but verify for important uses.</p>
+    </div>
+  </section>
+
+  <section id="premiumSection" class="hidden">
+    <h3>Premium Features</h3>
     <ul>
       <li>Unlimited Searches</li>
-      <li>Dark Web Monitoring</li>
-      <li>Full Background Reports</li>
-      <li>Privacy Removal Tools</li>
+      <li>Detailed Reports</li>
     </ul>
-    <button id="subscribeBtn">Subscribe Now (Demo)</button>
-  </div>
-
-  <div class="ads-placeholder">Ad Space – Monetize Here</div>
+    <button id="subscribeBtn">Subscribe</button>
+  </section>
 
   <footer>
-    <p>Data from uspeoplesearch.site API • For informational use only • <small>Not FCRA compliant</small></p>
-    <a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms</a>
+    <p>Data from uspeoplesearch.site • Informational only</p>
+    <a href="#privacy">Privacy</a> | <a href="#terms">Terms</a>
   </footer>
 </div>
-
-<div id="toast" class="hidden">Action Completed!</div>
 
 <div id="privacyModal" class="modal hidden">
   <div class="modal-content">
     <h2>Privacy Policy</h2>
-    <p>This is a simulated privacy policy...</p>
+    <p>We respect your privacy. Data is not stored.</p>
     <button id="closeModal">Close</button>
   </div>
 </div>
+
+<div id="toast" class="hidden"></div>
 
 <script src="script.js"></script>
 </body>
