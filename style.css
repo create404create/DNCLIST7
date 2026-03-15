@@ -1,0 +1,24 @@
+/* Existing CSS remains the same, adding new styles for heavy features */
+
+.main-nav { display: flex; gap: 10px; padding: 10px; background: #f8fafc; }
+.dark-theme .main-nav { background: #334155; }
+.main-nav button { padding: 10px; border: none; cursor: pointer; background: transparent; }
+.main-nav button.active { border-bottom: 2px solid #3b82f6; font-weight: bold; }
+
+#bulkSearchSection { padding: 20px; }
+
+#bulkTable { width: 100%; border-collapse: collapse; }
+#bulkTable th, #bulkTable td { border: 1px solid #e2e8f0; padding: 8px; text-align: left; }
+.dark-theme #bulkTable th, .dark-theme #bulkTable td { border-color: #475569; }
+
+.ads-placeholder { text-align: center; padding: 20px; background: #f0f0f0; margin: 20px; }
+.dark-theme .ads-placeholder { background: #1e293b; }
+
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; }
+.modal-content { background: white; padding: 20px; border-radius: 10px; max-width: 600px; }
+.dark-theme .modal-content { background: #1e293b; color: #e2e8f0; }
+
+#map { border: 1px solid #e2e8f0; }
+.dark-theme #map { border-color: #475569; }
+
+/* Add more styles for new elements as needed */
